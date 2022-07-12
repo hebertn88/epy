@@ -1,22 +1,33 @@
 {% extends 'base.html' %}
 
+
+
 {% block body %}
 
 <div class="row align-items-center min-vh-100">
     <div class="col-4"></div>
     <div class="col-4 shadow p-3 mb-5 bg-body rounded">
-        <form action="" method="POST" class="form-floating">{% csrf_token %}
-            <h1 class="mb-3">Login</h1>
+        <form action="{% url 'login' %}" method="POST" class="form-floating">{% csrf_token %}
+            <h1 class="mb-3 text-center">Login</h1>
+            <hr/ class="my-4">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}">
+                    {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" title="E-mail">
-                <label for="email">e-mail</label>
+                <input type="text" class="form-control" id="usuario" name="usuario" title="Usuário" placeholder="Usuário">
+                <label for="usuario">Usuário</label>
             </div>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="senha" name="senha" title="Senha'">
-                <label for="senha">senha</label>
+            <div class="form-floating mb-4">
+                <input type="password" class="form-control" id="senha" name="senha" title="Senha" placeholder="Senha">
+                <label for="senha">Senha</label>
             </div>
-            <div class="d-flex flex-row-reverse">
-            <button type="submit" class="btn btn-primary" title="Entrar">Entrar</button>
+            <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-lg btn-primary" title="Entrar">
+                <i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
             </div>
         </form>
     </div>

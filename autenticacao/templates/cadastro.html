@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+
+<div class="row ">
+    <h1 class="mb-3"><i class="fa-solid fa-circle-user mx-3"></i> Cadastro de Usuário</h1>
+    <div class="shadow p-4 mb-5 bg-body rounded">
+ 
+        <form action="{% url 'cadastro' %}" method="POST" class="form-floating">{% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}">
+                    {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="mb-3">
+                <label class="form-label mx-2" for="usuario">Usuário</label>
+                <input type="text" class="form-control form-control-lg" id="usuario" name="usuario" title="Usuário" required>
+            </div>
+            <br>
+            <div class="mb-3">
+                <label class="form-label mx-2" for="senha">Senha</label>
+                <input type="password" class="form-control form-control-lg" id="senha" name="senha" title="Senha" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label mx-2" for="senha">Confirme a Senha</label>
+                <input type="password" class="form-control form-control-lg" id="confirma_senha" name="confirma_senha" title="Confirme a Senha" required>
+            </div>
+            <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-lg btn-primary" title="Entrar">
+                <i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock body %}
