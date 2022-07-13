@@ -1,12 +1,10 @@
-from urllib import request
 from django.contrib import messages, auth
 from django.contrib.messages import constants
 from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-
+from .utils import valida_senha
 
 
 # Create your views here.
@@ -26,8 +24,7 @@ def cadastro(request):
             messages.add_message(request, constants.ERROR, 'Usuário já existe.')
             return render(request, 'cadastro.html')
         
-        if senha != confirma_senha:
-            messages.add_message(request, constants.ERROR, 'Você digitou senhas diferentes.')
+        if not valida_senha(request, senha, confirma_senha):
             return render(request, 'cadastro.html')
     
         try:
