@@ -4,10 +4,18 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+
 from .utils import valida_senha
 
 
 # Create your views here.
+def altera_senha(request, id):
+    if not request.user.is_authenticated:
+        return redirect('/auth/login')
+    
+    return render(request, 'altera_senha.html')
+
+
 def cadastro(request):
     if not request.user.is_authenticated:
         return redirect('/auth/login')
@@ -38,7 +46,6 @@ def cadastro(request):
 
 
 
-
 def login(request):
     if request.user.is_authenticated:
         return HttpResponse('já autenticado')
@@ -54,14 +61,15 @@ def login(request):
 
         if usuario is not None:
             messages.add_message(request, constants.SUCCESS, 'Usuário autenticado.')
-            return render(request, 'login.html')
+            auth.login(request, usuario)
+            return redirect('/auth/cadastro')
         else:
             if not User.objects.filter(username=nome_usuario):
                 messages.add_message(request, constants.ERROR, 'Usuário não encontrado.')
             else:
                 messages.add_message(request, constants.ERROR, 'Senha inválida.')
                                 
-            return render(request, 'login.html')
+            return redirect('/auth/login')
 
 def logout(request):
     auth.logout(request)

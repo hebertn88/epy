@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
+{% block top %}
+{% endblock %}
 
+{% block nav %}
+{% endblock %}
 
 {% block body %}
-
-<div class="row align-items-center min-vh-100">
-    <div class="col-4"></div>
-    <div class="col-4 shadow p-3 mb-5 bg-body rounded">
+<div class="d-flex justify-content-center align-items-center min-vh-100 min-vw-100">
+    <div class="col-3 container shadow p-4 mb-5 bg-body rounded">
         <form action="{% url 'login' %}" method="POST" class="form-floating">{% csrf_token %}
             <h1 class="mb-3 text-center">Login</h1>
             <hr/ class="my-4">
@@ -17,13 +19,13 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="usuario" name="usuario" title="Usuário" placeholder="Usuário">
-                <label for="usuario">Usuário</label>
+            <div class="mb-3">
+                <label class="form-label" for="usuario">Usuário</label>
+                <input type="text" class="form-control form-control-lg" id="usuario" name="usuario" data-bs-toggle="tooltip" title="Usuário">
             </div>
-            <div class="form-floating mb-4">
-                <input type="password" class="form-control" id="senha" name="senha" title="Senha" placeholder="Senha">
-                <label for="senha">Senha</label>
+            <div class="mb-4">
+                <label class="form-label" for="senha">Senha</label>
+                <input type="password" class="form-control form-control-lg" id="senha" name="senha" title="Senha">
             </div>
             <div class="d-grid gap-2">
             <button type="submit" class="btn btn-lg btn-primary" title="Entrar">
@@ -31,7 +33,6 @@
             </div>
         </form>
     </div>
-    <div class="col-4"></div>
 </div>
 
 {% endblock body %}

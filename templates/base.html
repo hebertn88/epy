@@ -1,27 +1,92 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-{% load static %}
-
-<head>
-    {% block head %}{% endblock head %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'js/bootstrap.min.js' %}">
-    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
-
-    <title>{% block title %}{% endblock title %}</title>
-</head>
-<body class="bg-light">
-        {% block nav %}
-
-        {% endblock nav %}
-    <div class="container">
-        {% block body %}{% endblock body %}
-    </div>
+{% extends 'sctruct.html' %}
+{% block top %}
+<nav class="navbar sticky-top navbar-dark bg-dark shadow">
+  <div class="container">
+    <a class="navbar-brand" href="#">Sticky top</a>
+    <div class="d-flex dropdown">
+      <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        Olá, <span class="fw-semibold">{{ user.get_username|title }}</span>
+      </a>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</body>
-</html>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item" href="{% url 'altera_senha' user.id %}">Alterar Senha</a></li>
+        <li><a class="dropdown-item" href="#">Novo Usuário</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block nav %}
+<div class="d-flex align-self-stretch align-items-stretch">
+  <div class="d-flex align-self-stretch p-4 bg-white shadow">
+  <!--    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+        <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+        <span class="fs-5 fw-semibold">Collapsible</span>
+      </a>
+  -->
+      <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded border-0 collapsed fw-semibold" data-bs-toggle="collapse" data-bs-target="#mov-collapse" aria-expanded="true"><i class="fa-solid fa-up-right-and-down-left-from-center pe-2"></i>Movimentação
+          </button>
+          <div class="collapse show" id="mov-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Overview</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Updates</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Reports</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="border-top my-3"></li>
+
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded border-0 collapsed fw-semibold" data-bs-toggle="collapse" data-bs-target="#rel-collapse" aria-expanded="false">
+            <i class="fa-solid fa-newspaper pe-2"></i>Relatórios
+          </button>
+          <div class="collapse" id="rel-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Overview</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Weekly</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Monthly</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Annually</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="border-top my-3"></li>
+
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded border-0 collapsed fw-semibold" data-bs-toggle="collapse" data-bs-target="#cad-collapse" aria-expanded="false">
+            <i class="fa-solid fa-square-plus pe-2"></i>Cadastro
+          </button>
+          <div class="collapse" id="cad-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Processed</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Shipped</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Returned</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="border-top my-3"></li>
+        <li class="mb-1">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+            Account
+          </button>
+          <div class="collapse" id="account-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+</div>
+
+{% endblock %}

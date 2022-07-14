@@ -5,10 +5,10 @@
 {% block body %}
 
 <div class="d-flex flex-column w-100 mw-100 pt-4">
-    <h1 class="mb-3"><i class="fa-solid fa-circle-user mx-3"></i> Cadastro de Usuário</h1>
+    <h1 class="mb-3"><i class="fa-solid fa-circle-user mx-3"></i> Alteração de Senha</h1>
     <div class="shadow p-4 mb-5 bg-body rounded">
  
-        <form action="{% url 'cadastro' %}" method="POST" class="form-floating">{% csrf_token %}
+        <form action="{% url 'altera_senha' user.id %}" method="POST"></form>{% csrf_token %}
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert {{message.tags}}">
@@ -16,19 +16,22 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <div class="mb-3">
-                <label class="form-label mx-2" for="usuario">Usuário</label>
-                <input type="text" class="form-control form-control-lg" id="usuario" name="usuario" title="Usuário" required>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label col-form-label-lg" for="usuario">Usuário</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-lg" id="usuario" name="usuario" title="Usuário" value="{{ user.username}}" disabled readonly >
+                </div>
             </div>
             <br>
-            <div class="mb-3">
-                <label class="form-label mx-2" for="senha">Senha</label>
-                <input type="password" class="form-control form-control-lg" id="senha" name="senha" title="Senha" required>
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label col-form-label-lg" for="senha">Senha Atual</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control form-control-lg" id="senha" name="senha" title="Senha" required>
                     <div id="senhaAjuda" class="mx-2 form-text">
                         Sua senha deve ter pelo menos 6 caracteres, contando com números e letras.
                     </div>
+                </div>
             </div>
-
             <div class="mb-3">
                 <label class="form-label mx-2" for="senha">Confirme a Senha</label>
                 <input type="password" class="form-control form-control-lg" id="confirma_senha" name="confirma_senha" title="Confirme a Senha" required>
