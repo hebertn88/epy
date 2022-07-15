@@ -10,7 +10,7 @@
     
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
         <li><a class="dropdown-item" href="{% url 'altera_senha' user.id %}">Alterar Senha</a></li>
-        <li><a class="dropdown-item" href="#">Novo Usuário</a></li>
+        <li><a class="dropdown-item" href="{% url 'cadastro_usuario' %}">Novo Usuário</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
       </ul>
@@ -64,7 +64,7 @@
           </button>
           <div class="collapse" id="cad-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New</a></li>
+              <li><a href="{% url 'setores' %}" class="link-dark d-inline-flex text-decoration-none rounded">Setor</a></li>
               <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Processed</a></li>
               <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Shipped</a></li>
               <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Returned</a></li>

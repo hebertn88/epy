@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="d-flex flex-column col-sm-8">
+
+    <h1 class="mb-3"><i class="fa-solid fa-chart-pie mx-3"></i> Exclusão de Setor</h1>
+
+    <div class="shadow p-4 mb-5 bg-body rounded">
+
+
+                <p class="fs-4 text-center"> Você tem certeza que deseja excluir o Setor <strong>{{ setor.descricao}}</strong>?</p>
+
+                <form action="{% url 'exclusao_setor' setor.id %}" method="POST">{% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-outline-danger" href="{% url 'setores' %}" role="button" title="Voltar"><i class="fa-solid fa-circle-left"></i> Voltar</a>
+                        </div>
+                        <div class="col-sm-auto">
+                            <button type="submit" class="btn btn-lg btn-primary" title="Excluir"><i class="fa-solid fa-floppy-disk"></i> Excluir</button>
+                        </div>
+                    </div>
+                </form>
+  
+    </div>
+</div>
+
+{% endblock body %}

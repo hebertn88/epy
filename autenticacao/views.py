@@ -13,7 +13,33 @@ def altera_senha(request, id):
     if not request.user.is_authenticated:
         return redirect('/auth/login')
     
-    return render(request, 'altera_senha.html')
+    usuario = User.objects.get(pk=id)
+
+    if not usuario:
+        messages.add_message(request, constants.ERROR, 'Usuário não encontrado.')
+        return redirect('/auth/cadastro')
+    
+    if request.method == 'GET':
+        return render(request, 'altera_senha.html')
+    elif request.method == 'POST':
+        senha_atual = request.POST.get('senha_atual')
+        senha = request.POST.get('senha')
+        confirma_senha = request.POST.get('confirma_senha')
+
+        if authenticate(username=usuario.username, password=senha_atual):
+            if not valida_senha(request, senha, confirma_senha):
+                return redirect(f'/auth/altera_senha/{usuario.id}') 
+            try:
+                usuario.set_password(senha)
+                usuario.save()
+                messages.add_message(request, constants.SUCCESS, 'Senha alterada com sucesso.')
+                return redirect('/auth/cadastro')
+            except:
+                messages.add_message(request, constants.ERROR, 'Não foi possível alterar a senha.')
+                return redirect(f'/auth/altera_senha/{usuario.id}')
+        else:
+            messages.add_message(request, constants.ERROR, 'Senha atual inválida.')
+            return redirect(f'/auth/altera_senha/{usuario.id}')
 
 
 def cadastro(request):
@@ -21,8 +47,7 @@ def cadastro(request):
         return redirect('/auth/login')
 
     if request.method == 'GET':
-        return render(request, 'cadastro.html')
-
+        return render(request, 'cadastro_usuario.html')
     elif request.method == 'POST':
         nome_usuario = request.POST.get('usuario')
         senha = request.POST.get('senha')
@@ -30,18 +55,20 @@ def cadastro(request):
 
         if User.objects.filter(username=nome_usuario):
             messages.add_message(request, constants.ERROR, 'Usuário já existe.')
-            return render(request, 'cadastro.html')
+            return render(request, 'cadastro_usuario.html')
         
         if not valida_senha(request, senha, confirma_senha):
-            return render(request, 'cadastro.html')
+            return render(request, 'cadastro_usuario.html')
     
         try:
             usuario = User.objects.create_user(username=nome_usuario,
             password=senha)
             usuario.save()
+            auth.login(request, usuario)
             messages.add_message(request, constants.SUCCESS, 'Usuário cadastrado com sucesso.')
-            return redirect('/auth/login')
+            return redirect('/auth/cadastro')
         except:
+            messages.add_message(request, constants.ERROR, 'Não foi possível alterar a senha.')
             return redirect('/auth/cadastro')
 
 

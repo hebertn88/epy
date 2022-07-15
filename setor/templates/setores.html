@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+<div class="d-flex flex-column col-sm-8">
+    <div class="d-flex flex-row">
+        <h1 class="mb-3"><i class="fa-solid fa-chart-pie mx-3"></i> Setores</h1>
+        <a class="ms-auto me-3 btn btn-lg btn-primary mb-3" href="{% url 'cadastro_setor' %}" role="button"><i class="fa-solid fa-circle-plus"></i> Cadastrar Novo Setor</a>
+        
+    </div>
+
+
+    <div class="shadow p-4 mb-5 bg-body rounded">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{message.tags}}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if setores|length > 0 %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for setor in setores %}
+                <tr>
+                    <td class="col-1">{{setor.id}}</td>
+                    <td class="col-9">{{setor.descricao}}</td>
+                    <td class="col-2">
+                        <a class="btn btn-sm btn-outline-primary" href="{% url 'edicao_setor' setor.id %}" role="button"><i class="fa-solid fa-pen"></i> Editar</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'exclusao_setor' setor.id %}" role="button"><i class="fa-solid fa-trash"></i> Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p class="fs-4 text-center">Não há setores cadastrados para exibir.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock body %}

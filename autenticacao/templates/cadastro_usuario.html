@@ -5,11 +5,11 @@
 {% block body %}
 <div class="d-flex flex-column col-sm-8">
 
-    <h1 class="mb-3"><i class="fa-solid fa-circle-user mx-3"></i> Alteração de Senha</h1>
+    <h1 class="mb-3"><i class="fa-solid fa-circle-user mx-3"></i> Cadastro de Usuário</h1>
 
     <div class="shadow p-4 mb-5 bg-body rounded">
 
-        <form action="{% url 'altera_senha' user.id %}" method="POST">{% csrf_token %}
+        <form action="{% url 'cadastro_usuario' %}" method="POST" class="form-floating">{% csrf_token %}
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert {{message.tags}}">
@@ -17,17 +17,10 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <div class="row mb-4">
+            <div class="row mb-5">
                 <label class="col-sm-2 col-form-label col-form-label-lg" for="usuario">Usuário</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control form-control-lg" id="usuario" name="usuario" title="Usuário" value="{{ user.username}}" disabled readonly >
-                </div>
-            </div>
-            <div class="row mb-5">
-                <label class="col-sm-2 col-form-label col-form-label-lg" for="senha">Senha Atual</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control form-control-lg" id="senha_atual" name="senha_atual" title="Senha Atual" required>
-
+                    <input type="text" class="form-control form-control-lg" id="usuario" name="usuario" title="Usuário" requred>
                 </div>
             </div>
 
@@ -51,8 +44,8 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-10 d-grid">
-                    <button type="submit" class="btn btn-lg btn-primary" title="Alterar">
-                        <i class="fa-solid fa-circle-check"></i> Alterar</button>
+                    <button type="submit" class="btn btn-lg btn-primary" title="Entrar">
+                        <i class="fa-solid fa-circle-plus"></i> Cadastrar</button>
                 </div>
             </div>
         </form>
