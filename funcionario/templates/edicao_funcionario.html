@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="d-flex flex-column col-sm-8">
+
+    <h1 class="mb-3"><i class="fa-solid fa-id-badge mx-3"></i> Edição de Funcionário</h1>
+
+    <div class="shadow p-4 mb-5 bg-body rounded">
+
+        <form action="{% url 'edicao_funcionario' funcionario.id %}" method="POST" class="form-floating">{% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}">
+                    {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="row mb-4">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="descricao">Nome</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-lg" id="nome" name="nome" title="Nome" value="{{ funcionario.nome }}" requred>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="sobrenome">Sobrenome</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-lg" id="sobrenome" name="sobrenome" title="Sobrenome" value="{{ funcionario.sobrenome }}" requred>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="setor">Setor</label>
+                <div class="col-sm-10">
+                    <select class="form-select form-select-lg" aria-label="Setor" name="setor" required>
+                        <option disabled>Selecione uma opção</option>
+                        {% for setor in setores %}
+                            {% if setor.id == funcionario.setor.id %}
+                                <option value="{{ setor.id }}" selected>{{ setor.descricao }}</option>
+                            {% else %}
+                                <option value="{{ setor.id }}">{{ setor.descricao }}</option>
+                            {%endif%}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="ativo">Ativo</label>
+                <div class="col-sm-10 form-check form-switch fs-4">
+                    <div class="ps-3 pt-1">
+                        {% if funcionario.ativo %}
+                            <input class="form-check-input" type="checkbox" role="switch" name="ativo" value="True" checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" role="switch" name="ativo" value="True">
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-outline-danger" href="{% url 'funcionarios' %}" role="button" title="Voltar"><i class="fa-solid fa-circle-left"></i> Voltar</a>
+                            <button type="reset" class="btn btn-outline-warning" title="Desfazer">
+                                <i class="fa-solid fa-arrow-rotate-left"></i> Desfazer</button>
+                        </div>
+                        <div class="col-sm-auto">
+                        <button type="submit" class="btn btn-lg btn-primary" title="Alterar">
+                            <i class="fa-solid fa-floppy-disk"></i> Alterar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock body %}

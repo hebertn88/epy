@@ -16,20 +16,20 @@ def cadastro(request):
     elif request.method =='POST':
         descricao = request.POST.get('descricao')
     
-    #verifica se ja existe setor com mesma descricao
-    if Setor.objects.filter(descricao=descricao):
-        messages.add_message(request, constants.ERROR, 'Setor já existe.')
-        return redirect('/setor/cadastro')
+        #verifica se ja existe setor com mesma descricao
+        if Setor.objects.filter(descricao=descricao):
+            messages.add_message(request, constants.ERROR, 'Setor já existe.')
+            return redirect('/setor/cadastro')
 
-    try:
-        #grava novo registro
-        Setor.objects.create(descricao=descricao)
-        messages.add_message(request, constants.SUCCESS, 'Setor cadastrado com sucesso.')
-        return redirect('/setor')
-    except:
-        #se erro
-        messages.add_message(request, constants.ERROR, 'Erro ao cadastrar Setor.')
-        return redirect('/setor/cadastro')
+        try:
+            #grava novo registro
+            Setor.objects.create(descricao=descricao)
+            messages.add_message(request, constants.SUCCESS, 'Setor cadastrado com sucesso.')
+            return redirect('/setor')
+        except:
+            #se erro
+            messages.add_message(request, constants.ERROR, 'Erro ao cadastrar Setor.')
+            return redirect('/setor/cadastro')
 
 
 def edicao(request, id):
@@ -75,12 +75,12 @@ def exclusao(request, id):
         return redirect('/auth/login')
 
     #busca setor, se nao existir redireciona
-    setor = Setor.objects.get(pk=id)
-    if not setor:
+    try:
+        setor = Setor.objects.get(pk=id)
+        context = {'setor': setor}    
+    except:
         messages.add_message(request, constants.ERROR, 'Setor não encontrado.')
         return redirect('/setor/')
-
-    context = {'setor': setor}
 
     if request.method == 'GET':
         return render(request, 'exclusao_setor.html', context)
@@ -93,7 +93,7 @@ def exclusao(request, id):
         except:
             #se erro ao exlcuir
             messages.add_message(request, constants.ERROR, 'Não foi possível excluir o Setor.')
-            return render(request, 'exclusao_setor.html', context)
+            return redirect('/setor/')
 
 
 def setores(request):
