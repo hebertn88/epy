@@ -105,3 +105,6 @@ def setores(request):
     setores = Setor.objects.all().order_by('descricao')
     context = {'setores': setores}
     return render(request, 'setores.html', context)
+
+def teste(request):
+    return render(request, 'basev2.html')

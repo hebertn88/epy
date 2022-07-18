@@ -1,0 +1,46 @@
+<div class="d-flex flex-fill align-self-stretch justify-content-center shadow p-4 bg-white" style="z-index:1;">
+    <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded border-0 collapsed fw-semibold" data-bs-toggle="collapse" data-bs-target="#mov-collapse" aria-expanded="true"><i class="fa-solid fa-up-right-and-down-left-from-center pe-2"></i>Movimentação
+            </button>
+            <div class="collapse show" id="mov-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Overview</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Updates</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Reports</a></li>
+                </ul>
+            </div>
+        </li>
+  
+        <li class="border-top my-3"></li>
+  
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded border-0 collapsed fw-semibold" data-bs-toggle="collapse" data-bs-target="#rel-collapse" aria-expanded="false"><i class="fa-solid fa-newspaper pe-2"></i>Relatórios
+            </button>
+            <div class="collapse" id="rel-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Overview</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Weekly</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Monthly</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Annually</a></li>
+                </ul>
+            </div>
+        </li>
+  
+        <li class="border-top my-3"></li>
+  
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded border-0 collapsed fw-semibold" data-bs-toggle="collapse" data-bs-target="#cad-collapse" aria-expanded="false"><i class="fa-solid fa-square-plus pe-2"></i>Cadastro
+            </button>
+            <div class="collapse" id="cad-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{% url 'setores' %}" class="link-dark d-inline-flex text-decoration-none rounded">Setor</a></li>
+                    <li><a href="{% url 'funcionarios' %}" class="link-dark d-inline-flex text-decoration-none rounded">Funcionário</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Shipped</a></li>
+                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Returned</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="border-top my-3"></li>
+    </ul>
+</div>

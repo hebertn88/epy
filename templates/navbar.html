@@ -1,0 +1,17 @@
+<nav class="navbar sticky-top navbar-dark bg-dark shadow">
+    <div class="container">
+      <a class="navbar-brand" href="#">Sticky top</a>
+      <div class="d-flex dropdown">
+        <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          Olá, <span class="fw-semibold">{{ user.get_username|title }}</span>
+        </a>
+      
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" href="{% url 'altera_senha' user.id %}">Alterar Senha</a></li>
+          <li><a class="dropdown-item" href="{% url 'cadastro_usuario' %}">Novo Usuário</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
