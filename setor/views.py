@@ -106,5 +106,3 @@ def setores(request):
     context = {'setores': setores}
     return render(request, 'setores.html', context)
 
-def teste(request):
-    return render(request, 'basev2.html')

@@ -6,6 +6,4 @@ urlpatterns = [
     path('cadastro', views.cadastro, name='cadastro_setor'),
     path('edicao/<int:id>', views.edicao, name='edicao_setor'),
     path('exclusao/<int:id>', views.exclusao, name='exclusao_setor'),
-
-    path('teste', views.teste, name='teste'),
 ]
