@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<div class="d-flex flex-column col-sm-8">
+
+    <h1 class="mb-3"><i class="fa-solid fa-screwdriver-wrench mx-3"></i> Cadastro de Equipamento</h1>
+
+    <div class="shadow p-4 mb-5 bg-body rounded">
+
+        <form action="{% url 'cadastro_equipamento' %}" method="POST" class="form-floating">{% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}">
+                    {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="row mb-5">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="descricao">Descrição</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-lg" id="descricao" name="descricao" title="Descricao" requred>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="setor">Setor</label>
+                <div class="col-sm-10">
+                    <select class="form-select form-select-lg" aria-label="Setor" name="setor" required>
+                        <option selected disabled>Selecione uma opção</option>
+                        {% for setor in setores %}
+                        <option value="{{ setor.id }}">{{ setor.descricao }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="validade">Validade</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control form-control-lg" id="validade" name="validade" min="1" value="1" title="Validade" requred>
+                    <div id="validadeAjuda" class="form-text">
+                        Informe, em meses, uma previsão do período em que o equipamento deverá ser trocado.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-outline-danger" href="{% url 'equipamentos' %}" role="button" title="Voltar"><i class="fa-solid fa-circle-left"></i> Voltar</a>
+                            <button type="reset" class="btn btn-outline-warning" title="Desfazer">
+                                <i class="fa-solid fa-arrow-rotate-left"></i> Desfazer</button>
+                        </div>
+                        <div class="col-sm-auto">
+                            <button type="submit" class="btn btn-lg btn-primary" title="Cadastrar">
+                                <i class="fa-solid fa-floppy-disk"></i> Cadastrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock content %}

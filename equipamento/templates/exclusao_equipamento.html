@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex flex-column col-sm-8">
+
+    <h1 class="mb-3"><i class="fa-solid fa-screwdriver-wrench mx-3"></i> Exclusão de Equipamento</h1>
+
+    <div class="shadow p-4 mb-5 bg-body rounded">
+
+        <p class="fs-4 text-center"> Você tem certeza que deseja excluir o Equipamento <strong>{{ equipamento.descricao}}</strong>?</p>
+
+        <form action="{% url 'exclusao_equipamento' equipamento.id %}" method="POST">{% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-outline-danger" href="{% url 'equipamentos' %}" role="button" title="Voltar"><i class="fa-solid fa-circle-left"></i> Voltar</a>
+                </div>
+                <div class="col-sm-auto">
+                    <button type="submit" class="btn btn-lg btn-primary" title="Excluir"><i class="fa-solid fa-trash"></i> Excluir</button>
+                </div>
+            </div>
+        </form>
+  
+    </div>
+</div>
+
+{% endblock content %}

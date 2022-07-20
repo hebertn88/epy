@@ -110,8 +110,6 @@ def edicao(request, id):
             return redirect('/funcionario/')
 
         
-
-
 def funcionarios(request):
     #verifica se usuario esta autenticado
     if not request.user.is_authenticated:

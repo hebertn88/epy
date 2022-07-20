@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex flex-column col-sm-8">
+
+    <h1 class="mb-3"><i class="fa-solid fa-screwdriver-wrench mx-3"></i> Vincula Setor</h1>
+
+    <div class="shadow p-4 mb-5 bg-body rounded">
+
+        <form action="{% url 'vincula_setor' equipamento.id %}" method="POST" class="form-floating">{% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}">
+                    {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="row mb-4">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="descricao">Equipamento</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-lg" id="descricao" name="descricao" title="Descrição" value="{{ equipamento.descricao }}" disabled>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="setor">Setor</label>
+                <div class="col-sm-10">
+                    <select class="form-select form-select-lg" aria-label="Setor" name="setor" required>
+                        <option selected disabled>Selecione uma opção</option>
+                        {% for setor in setores %}
+                        <option value="{{ setor.id }}">{{ setor.descricao }}</option>
+                        {% endfor %}
+                    </select>
+                    <div id="setorAjuda" class="form-text">
+                        Setores já vinculados:
+                        {% for setor in equip_setores %}
+                            <span class="badge rounded-pill text-bg-secondary">{{setor}}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="validade">Validade</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control form-control-lg" id="validade" name="validade" title="Validade" min="1" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-outline-danger" href="{% url 'edicao_equipamento' equipamento.id %}" role="button" title="Voltar"><i class="fa-solid fa-circle-left"></i> Voltar</a>
+                            <button type="reset" class="btn btn-outline-warning" title="Desfazer">
+                                <i class="fa-solid fa-arrow-rotate-left"></i> Desfazer</button>
+                        </div>
+                        <div class="col-sm-auto">
+                        <button type="submit" class="btn btn-lg btn-primary" title="Alterar">
+                            <i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

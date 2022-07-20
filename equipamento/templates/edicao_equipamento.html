@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex flex-column col-sm-8">
+
+    <h1 class="mb-3"><i class="fa-solid fa-screwdriver-wrench mx-3"></i> Edição de Equipamento</h1>
+
+    <div class="shadow p-4 mb-5 bg-body rounded">
+
+        <form action="{% url 'edicao_equipamento' equipamento.id %}" method="POST" class="form-floating">{% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}">
+                    {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="row mb-4">
+                <label class="col-sm-2 col-form-label col-form-label-lg" for="descricao">Descrição</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-lg" id="descricao" name="descricao" title="Descrição" value="{{ equipamento.descricao }}" requred>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <div class="container-fluid border shadow-sm rounded p-4 mb-5">
+                        <div class="row">
+                            <p class='col-auto me-auto fs-5 ms-3'>Setores Vinculados ao Equipamento</p>
+                            <a class="col-auto ms-auto me-2 btn btn-sm btn-primary mb-3" href="{% url 'vincula_setor' equipamento.id %}" role="button"><i class="fa-solid fa-circle-plus"></i> Vincular Setor</a>    
+                        </div>
+                        
+
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Setor</th>
+                                    <th scope="col">Validade</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                
+                                {% for row in equipamento.equipamentosetor_set.all %}
+                                <tr>
+                                    <td>{{row.setor.descricao}}</td>
+                                    <td>{{row.validade}}</td>
+                                    <td class="col-3">
+                                        <a class="btn btn-sm btn-outline-primary" href="{% url 'edicao_equipsetor' equipamento.id row.setor.id %}" role="button"><i class="fa-solid fa-pen"></i> Editar</a>
+                                        <a class="btn btn-sm btn-outline-danger" href="{% url 'exclusao_equipsetor' equipamento.id row.setor.id %}" role="button"><i class="fa-solid fa-trash"></i> Excluir</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-outline-danger" href="{% url 'equipamentos' %}" role="button" title="Voltar"><i class="fa-solid fa-circle-left"></i> Voltar</a>
+                            <button type="reset" class="btn btn-outline-warning" title="Desfazer">
+                                <i class="fa-solid fa-arrow-rotate-left"></i> Desfazer</button>
+                        </div>
+                        <div class="col-sm-auto">
+                        <button type="submit" class="btn btn-lg btn-primary" title="Alterar">
+                            <i class="fa-solid fa-floppy-disk"></i> Alterar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
